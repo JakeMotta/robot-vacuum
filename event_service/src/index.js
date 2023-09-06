@@ -47,7 +47,5 @@ app.use("/events", router);
 
 /** Error Handler */
 app.use((error, req, res, next) => {
-    // const response = { statusCode: 500, error: true, message: error?.error?.message };
-    // res.status(response.statusCode).send(response);
     return helper.sendResponse(res, messages.FAILURE, error?.error?.message , configs.serviceName);
 });
