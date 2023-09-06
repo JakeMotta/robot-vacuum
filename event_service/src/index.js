@@ -40,10 +40,10 @@ db.once("open", function () {
 app.models = require("./models");
 
 /** Router Declaration **/
-const eventsRouter = require("./routes");
+const router = require("./routes");
 
 /** Routes **/
-app.use("/events", eventsRouter);
+app.use("/events", router);
 
 /** Error Handler */
 app.use((error, req, res, next) => {
