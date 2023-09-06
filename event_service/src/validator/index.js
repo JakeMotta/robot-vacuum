@@ -1,6 +1,6 @@
 const joi = require("joi");
 
-module.exports.testValidation = joi.object({
+module.exports.createJobValidation = joi.object({
     vacuumId: joi.string().trim().required().error(new Error("`vacuumId` is required!")), // ID of the vacuum that had the requested job
     priority: joi.boolean().required(),
     instructions: joi.array().items(

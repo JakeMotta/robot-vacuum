@@ -4,8 +4,9 @@ const app = express();
 const bodyParser = require("body-parser");
 const helmet = require("helmet");
 const configs = require('./configs');
+const mongoose = require("mongoose");
+const messages = require("../../shared/messages");
 const helper = require("../../shared/utils")(configs);
-const dependencies = require("./configs/dependencies")(app, express, configs);
 
 app.get('/', (req, res) => {
     res.send(`Hello from ${configs.serviceName} - ${configs.PORT}`);
@@ -21,9 +22,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ limit: "5000mb" }));
 
 /** ----------- DATABASE START ----------- **/
-dependencies.mongoose.connect(configs.dbUrl, { useNewUrlParser: true });
-const db = dependencies.mongoose.connection;
-dependencies.mongoose.Promise = global.Promise;
+mongoose.connect(configs.dbUrl, { useNewUrlParser: true });
+mongoose.Promise = global.Promise;
+const db = mongoose.connection;
 
 db.on("error", function () {
     console.error.bind(console, "Error in db connection!");
@@ -44,30 +45,9 @@ const eventsRouter = require("./routes");
 /** Routes **/
 app.use("/events", eventsRouter);
 
-// Error-handling middleware
-/** Handler for 404 - Resource Not Found */
-app.use((req, res, next) => {
-    res.status(404).send({
-        statusCode: 404,
-        error: true,
-        message: "Error",
-        data: {},
-    });
-});
-
-/** Handler for Error 500 and 400 */
+/** Error Handler */
 app.use((error, req, res, next) => {
-    const response = {
-        statusCode: 500,
-        error: true,
-        message: error?.message,
-        data: {},
-    };
-
-    if (error && error.error && error.error.isJoi && error.error.details && Array.isArray(error.error.details) && error.error.details.length) {
-        response.message = error.error.details.map((e) => e.message);
-        response.message = response.message.join(". ");
-        response.statusCode = 400;
-    }
-    res.status(response.statusCode).send(response);
+    // const response = { statusCode: 500, error: true, message: error?.error?.message };
+    // res.status(response.statusCode).send(response);
+    return helper.sendResponse(res, messages.FAILURE, error?.error?.message , configs.serviceName);
 });
