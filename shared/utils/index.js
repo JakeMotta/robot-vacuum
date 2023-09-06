@@ -6,6 +6,10 @@ module.exports = function () {
             console.log("Started on: %s", new Date());
             console.log("Listening on port: %s", port);
         },
+        parseHTTPResponse: (incomingData) => {
+            if(incomingData?.data?.success) return incomingData?.data?.data;
+            return incomingData?.data;
+        },
         sendResponse: function (res, message, data, module) {
             const description = ""
                 .concat(module ? module : "")
