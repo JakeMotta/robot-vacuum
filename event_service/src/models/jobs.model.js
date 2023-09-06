@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const JobDocSchema = new mongoose.Schema(
+const JobsSchema = new mongoose.Schema(
     {
         vacuumId: {
             type: String,
@@ -19,4 +19,4 @@ const JobDocSchema = new mongoose.Schema(
         timestamps: true,
     }
 );
-module.exports = mongoose.model("JobDoc", JobDocSchema);
+module.exports = mongoose.model("Jobs", JobsSchema);

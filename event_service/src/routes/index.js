@@ -7,9 +7,6 @@ const validator = require('express-joi-validation').createValidator({})
 /** Controllers */
 const { helloWorld, createJob } = require("../controllers");
 
-/**  Middlewares */
-// const { apiValidation } = require("../middlewares/authorization");
-
 /** Validators */
 const { testValidation } = require("../validator");
 

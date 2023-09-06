@@ -17,8 +17,8 @@ module.exports.createJob = async (req, res) => {
     const { vacuumId, priority, instructions } = req.body;
 
     let obj = { vacuumId, priority, instructions }
-    const jobDoc = new req.app.models("jobDoc")(obj);
-    await jobDoc.save();
+    const job = new req.app.models("jobs")(obj);
+    await job.save();
     return helper.sendResponse(res, messages.SUCCESS, obj, configs.serviceName);
   } catch (err) {
     return helper.sendResponse(res, messages.INTERNAL_SERVER_ERROR, null, configs.serviceName);
