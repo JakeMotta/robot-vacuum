@@ -11,6 +11,17 @@
                 "start"
             ],
             "cwd": "${workspaceFolder}/event_service/"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Vacuum Service - Nodemon",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run-script",
+                "start"
+            ],
+            "cwd": "${workspaceFolder}/vacuum_service/"
         }
     ]
 }
