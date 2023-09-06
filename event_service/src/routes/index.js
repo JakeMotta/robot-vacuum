@@ -10,6 +10,6 @@ const { createJobValidation } = require("../validator");
 
 /** Routes */
 router.get('/', helloWorld);
-router.post('/job', validator.body(createJobValidation), createJob);
+router.post('/', validator.body(createJobValidation), createJob);
 
 module.exports = router;

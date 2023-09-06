@@ -22,6 +22,17 @@
                 "start"
             ],
             "cwd": "${workspaceFolder}/vacuum_service/"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Calculation Service - Nodemon",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run-script",
+                "start"
+            ],
+            "cwd": "${workspaceFolder}/calculation_service/"
         }
     ]
 }

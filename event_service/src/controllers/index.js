@@ -21,11 +21,17 @@ module.exports.createJob = async (req, res) => {
     const foundVacuum = helper.parseHTTPResponse(await axios.get(`http://localhost:4000/vacuum/${vacuumId}`));
 
     if(foundVacuum?._id) {
+      // Vacuum found
       let obj = { vacuumId, priority, instructions, status: configs.jobStatus.TO_DO }
       const job = new req.app.models("jobs")(obj);
       await job.save();
+
+      const calculateRoute = helper.parseHTTPResponse(await axios.post(`http://localhost:6000/calculate/${vacuumId}`));
+
+      
       return helper.sendResponse(res, messages.SUCCESS, obj, configs.serviceName);
     } else {
+      // No vacuum found
       return helper.sendResponse(res, messages.DATA_NOT_FOUND, null, configs.serviceName);
     }   
   } catch (err) {
