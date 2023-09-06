@@ -11,12 +11,15 @@ module.exports.helloWorld = async (req, res) => {
   }
 };
 
-module.exports.test = async (req, res) => {
+// Creates a new job
+module.exports.createJob = async (req, res) => {
   try {
-    const { mom } = req.body;
-    const message = `Hello world from ${mom}`;
-    return helper.sendResponse(res, messages.SUCCESS, message, configs.serviceName);
+    const { vacuumId, priority, instructions } = req.body;
 
+    let obj = { vacuumId, priority, instructions }
+    const jobDoc = new req.app.models("jobDoc")(obj);
+    await jobDoc.save();
+    return helper.sendResponse(res, messages.SUCCESS, obj, configs.serviceName);
   } catch (err) {
     return helper.sendResponse(res, messages.INTERNAL_SERVER_ERROR, null, configs.serviceName);
   }

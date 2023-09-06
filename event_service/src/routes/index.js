@@ -1,10 +1,11 @@
 /** NPM packages */
 const express = require("express");
 const router = express.Router();
-const validator = require("express-joi-validation").createValidator({ passError: true });
+// const validator = require("express-joi-validation").createValidator({ passError: true });
+const validator = require('express-joi-validation').createValidator({})
 
 /** Controllers */
-const { helloWorld, test } = require("../controllers");
+const { helloWorld, createJob } = require("../controllers");
 
 /**  Middlewares */
 // const { apiValidation } = require("../middlewares/authorization");
@@ -14,6 +15,6 @@ const { testValidation } = require("../validator");
 
 /** Routes */
 router.get('/', helloWorld);
-router.post('/test', validator.body(testValidation), test);
+router.post('/job', validator.body(testValidation), createJob);
 
 module.exports = router;
