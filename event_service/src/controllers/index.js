@@ -4,15 +4,6 @@ const helper = require("../../../shared/utils")(configs);
 const messages = require("../../../shared/messages");
 const axios = require('axios');
 
-// Basic Route Testing
-const helloWorld = async (req, res) => {
-  try {
-    return helper.sendResponse(res, messages.SUCCESS, null, configs.serviceName);
-  } catch (err) {
-    return helper.sendResponse(res, messages.INTERNAL_SERVER_ERROR, null, configs.serviceName);
-  }
-};
-
 // Finds jobs based on a vacuum's id
 const getJobs = async (req, res) => {
   try {
@@ -122,7 +113,6 @@ const createJob = async (req, res) => {
 };
 
 module.exports = {
-  helloWorld,
   getJobs,
   createJob,
   getPriorityRooms,
