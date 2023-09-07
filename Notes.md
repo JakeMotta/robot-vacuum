@@ -1,10 +1,12 @@
 
 
-Input = [[3,2,4],[2,8,4],[4,6,4,9]]
+instructions = [[3,2,4],[2,8,4],[4,6,4,9]]
+batch = [3,2,4]
+permutations = [[3,2,4], [3,2,4], [3,2,4], [3,2,4], [3,2,4], [3,2,4]]
+
 
 Assumptions:
 - Duplicate rooms in a single batch can be merged (unique rooms only)
-- 
 
 Weight Calculation:
 1 -> 3 = 2
@@ -33,3 +35,12 @@ Route History: 1,2,3,4
 
 Best Algo: Calculate weight based on all batch inputs
 Current Algo: Calculate weight based on individual batch inputs
+
+
+Thought: Focusing priority first may cause the rouote to be very unoptimized
+Priority: [1,100]
+Input: [[1,100,2,3,4....]]
+
+Thought: Focusing priority first may cause the rouote to be very unoptimized
+Priority: [1,100]
+Input: [[1,100,2,3,4....]

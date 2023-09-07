@@ -31,7 +31,7 @@ const getPriorityRoomsById = async (req, res) => {
   try {
     const { vacuumId } = req.params;
 
-    const findPriorityRoomsById = await req.app.models("priorityRooms").find({vacuumId})
+    const findPriorityRoomsById = await req.app.models("priorityRooms").findOne({vacuumId})
 
     return helper.sendResponse(res, messages.SUCCESS, findPriorityRoomsById, configs.serviceName);
   } catch (err) {
@@ -82,18 +82,18 @@ const createJob = async (req, res) => {
 
       if(foundVacuum?.status === constants.vacuumStatus.IDLE && findJobs && findJobs.length > 0) {
 
-        const findPriorityRooms = await req.app.models("priorityRooms").find({vacuumId });
+        const foundPriorityRooms = await req.app.models("priorityRooms").findOne({vacuumId});
 
         let outgoingData =  {
           instructions: findJobs[0]?.instructions,
           currentRoom: foundVacuum?.currentRoom, 
         }
 
-        if(findPriorityRooms && findPriorityRooms.length > 0) outgoingData["priorityRooms"] = findPriorityRooms;
+        if(foundPriorityRooms && foundPriorityRooms.priorityRooms) outgoingData["priorityRooms"] = foundPriorityRooms.priorityRooms;
 
         // If vacuum isn't currently busy, and we have at least one job
         const calculateRoute = helper.parseHTTPResponse(await axios.post('http://localhost:6000/calculate/', outgoingData));
-        console.log()
+        return helper.sendResponse(res, messages.SUCCESS, calculateRoute, configs.serviceName);
       }
 
       return helper.sendResponse(res, messages.SUCCESS, null, configs.serviceName);
