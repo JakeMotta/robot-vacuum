@@ -80,6 +80,7 @@ const createJob = async (req, res) => {
 
       const findJobs = await req.app.models("jobs").find({vacuumId, status: constants.jobStatus.TO_DO }).sort({ createdAt: 1 })
 
+      // If vacuum isn't currently busy, and we have at least one job
       if(foundVacuum?.status === constants.vacuumStatus.IDLE && findJobs && findJobs.length > 0) {
 
         const foundPriorityRooms = await req.app.models("priorityRooms").findOne({vacuumId});
@@ -91,7 +92,6 @@ const createJob = async (req, res) => {
 
         if(foundPriorityRooms && foundPriorityRooms.priorityRooms) outgoingData["priorityRooms"] = foundPriorityRooms.priorityRooms;
 
-        // If vacuum isn't currently busy, and we have at least one job
         const calculateRoute = helper.parseHTTPResponse(await axios.post('http://localhost:6000/calculate/', outgoingData));
         return helper.sendResponse(res, messages.SUCCESS, calculateRoute, configs.serviceName);
       }
