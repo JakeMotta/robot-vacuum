@@ -7,7 +7,7 @@
 2. Run `npm install` to install node modules
 3. Run `npm run start` to start the microservice
 4. Create a `.env` file in the microservice room directory (ex: `/robot-vacuum/event_service/.env`)
-5. Put the following variable in: 
+5. Put the following variable in: (attached in email)
 6. Save
 ---
 7. After you've done the above steps for the 3 microservices, use Postman or another service to start making API calls.
