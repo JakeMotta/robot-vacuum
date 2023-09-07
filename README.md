@@ -21,20 +21,6 @@
 
 7. After you've done the above steps for the 3 microservices, use Postman or another service to start making API calls.
 
-To ignore the complexities of my program, I've created a route to simply calculate the room order.
-
-**POST**: `http://localhost:6000/calculate`
-
-_Body_:
-
-```JSON
-{
-    "instructions": [[3,2,4],[2,8,4],[4,6,4,9]],
-    "currentRoom": 1,
-    "priorityRooms": [1,2,3]
-}
-```
-
 # Architecture
 
 - This project was setup with a MERN architecture in mind, utilizing Mongo, Express, and NodeJS for the backend.
