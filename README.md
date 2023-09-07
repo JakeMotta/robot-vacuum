@@ -35,7 +35,7 @@
 
 - I chose to use MERN architecture as it's both comfortable/familiar, it allows me to easily build for full-stack (which I was initially planning for on this project), has great community support and libraries, and is scalable.
 
-- My algorithm for the vacuum is very basic. Check if we have priority rooms in our batch, and if so, make sure they are first. Then, sort the 'low priority' rooms from low to high. There is much room for improvement here, however this at least keeps us going in as much as a straight line as we can, minimizing back-and-forth motions.
+- My algorithm for the vacuum is very basic. Check if we have priority rooms in our batch, and if so, make sure they are first. Then, sort the 'low priority'. There is much room for improvement here, however this at least keeps us going in as much as a straight line as we can, minimizing back-and-forth motions.
 
 # Assumptions
 
