@@ -3,7 +3,7 @@ const helper = require("../../../shared/utils")(configs);
 const messages = require("../../../shared/messages");
 
 // Basic Route Testing
-module.exports.helloWorld = async (req, res) => {
+const helloWorld = async (req, res) => {
   try {
     return helper.sendResponse(res, messages.SUCCESS, null, configs.serviceName);
   } catch (err) {
@@ -12,7 +12,7 @@ module.exports.helloWorld = async (req, res) => {
 };
 
 // Creates a new vacuum
-module.exports.getVacuumById = async (req, res) => {
+const getVacuumById = async (req, res) => {
   try {
     const { vacuumId } = req.params;
 
@@ -30,7 +30,7 @@ module.exports.getVacuumById = async (req, res) => {
 };
 
 // Creates a new vacuum
-module.exports.createVacuum = async (req, res) => {
+const createVacuum = async (req, res) => {
   try {
     const newVacuum = new req.app.models("vacuum")({});
     await newVacuum.save();
@@ -38,4 +38,10 @@ module.exports.createVacuum = async (req, res) => {
   } catch (err) {
     return helper.sendResponse(res, messages.INTERNAL_SERVER_ERROR, null, configs.serviceName);
   }
+};
+
+module.exports = {
+  helloWorld,
+  getVacuumById,
+  createVacuum,
 };

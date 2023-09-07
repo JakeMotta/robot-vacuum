@@ -1,16 +1,11 @@
 const mongoose = require("mongoose");
-const configs = require('../configs');
+const constants = require('../../../shared/constants');
 
 const JobsSchema = new mongoose.Schema(
     {
         vacuumId: {
             type: String,
             default: null,
-            required: true
-        },
-        priority: {
-            type: Boolean,
-            default: false,
             required: true
         },
         instructions: {
@@ -21,7 +16,7 @@ const JobsSchema = new mongoose.Schema(
         status: {
             type: String,
             enum: ["TO_DO", "IN_PROGRESS", "DONE"],
-            default: configs.jobStatus.TO_DO,
+            default: constants.jobStatus.TO_DO,
             required: true
         },
     },

@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
-const configs = require('../configs');
+const constants = require('../../../shared/constants');
 
 const VacuumSchema = new mongoose.Schema(
     {
         status: {
             type: String,
             enum: ["BUSY", "IDLE"],
-            default: configs.vacuumStatus.IDLE,
+            default: constants.vacuumStatus.IDLE,
         },
         currentRoom: {
             type: Number,

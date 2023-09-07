@@ -1,14 +1,15 @@
 const express = require("express");
 const router = express.Router();
-// const validator = require("express-joi-validation").createValidator({ passError: true });
+const validator = require("express-joi-validation").createValidator({ passError: true });
 
 /** Controllers */
-const { helloWorld, createVacuum, getVacuumById } = require("../controllers");
+const { helloWorld, calculateJobPriority } = require("../controllers");
 
 /** Validators */
-// const { getVacuumByIdValidation } = require("../validator");
+const { calculateJobPriorityValidation } = require("../validator");
 
 /** Routes */
 router.get('/', helloWorld);
+router.post('/', validator.body(calculateJobPriorityValidation), calculateJobPriority);
 
 module.exports = router;
