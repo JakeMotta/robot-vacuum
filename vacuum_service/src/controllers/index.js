@@ -12,7 +12,7 @@ const helloWorld = async (req, res) => {
 };
 
 // Creates a new vacuum
-const getVacuumById = async (req, res) => {
+const getVacuum = async (req, res) => {
   try {
     const { vacuumId } = req.params;
 
@@ -42,6 +42,6 @@ const createVacuum = async (req, res) => {
 
 module.exports = {
   helloWorld,
-  getVacuumById,
+  getVacuum,
   createVacuum,
 };

@@ -3,7 +3,7 @@ const router = express.Router();
 const validator = require("express-joi-validation").createValidator({ passError: true });
 
 /** Controllers */
-const { helloWorld, getJobsById, createJob, getPriorityRoomsById, setPriorityRooms } = require("../controllers");
+const { helloWorld, getJobs, createJob, getPriorityRooms, setPriorityRooms } = require("../controllers");
 
 /** Validators */
 const { createJobValidation, priorityRoomsValidation } = require("../validator");
@@ -11,10 +11,10 @@ const { createJobValidation, priorityRoomsValidation } = require("../validator")
 /** Routes */
 router.get('/', helloWorld);
 
-router.get('/jobs/:vacuumId', getJobsById);
+router.get('/jobs/:vacuumId', getJobs);
 router.post('/jobs/:vacuumId', validator.body(createJobValidation), createJob);
 
-router.get('/priority/:vacuumId', getPriorityRoomsById);
+router.get('/priority/:vacuumId', getPriorityRooms);
 router.post('/priority/:vacuumId', validator.body(priorityRoomsValidation), setPriorityRooms);
 
 

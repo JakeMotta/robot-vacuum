@@ -11,7 +11,8 @@ const helloWorld = async (req, res) => {
   }
 };
 
-const calculateJobPriority = async (req, res) => {
+// Calculates room order
+const calculateRoomOrder = async (req, res) => {
   try {
     const { instructions, currentRoom, priorityRooms } = req.body;
 
@@ -42,6 +43,7 @@ const calculateJobPriority = async (req, res) => {
 
       roomsCleaned += tempArr.length;
 
+      // Push to new batch
       newInstructions.push(tempArr);
   });
 
@@ -81,5 +83,5 @@ const calculateJobPriority = async (req, res) => {
 
 module.exports = {
   helloWorld,
-  calculateJobPriority,
+  calculateRoomOrder,
 };

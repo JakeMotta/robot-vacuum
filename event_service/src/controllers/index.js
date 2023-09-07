@@ -14,26 +14,26 @@ const helloWorld = async (req, res) => {
 };
 
 // Finds jobs based on a vacuum's id
-const getJobsById = async (req, res) => {
+const getJobs = async (req, res) => {
   try {
     const { vacuumId } = req.params;
 
-    const findJobsById = await req.app.models("jobs").find({vacuumId})
+    const findJobs = await req.app.models("jobs").find({vacuumId})
 
-    return helper.sendResponse(res, messages.SUCCESS, findJobsById, configs.serviceName);
+    return helper.sendResponse(res, messages.SUCCESS, findJobs, configs.serviceName);
   } catch (err) {
     return helper.sendResponse(res, messages.INTERNAL_SERVER_ERROR, null, configs.serviceName);
   }
 };
 
 // Finds priority rooms based on a vacuum's id
-const getPriorityRoomsById = async (req, res) => {
+const getPriorityRooms = async (req, res) => {
   try {
     const { vacuumId } = req.params;
 
-    const findPriorityRoomsById = await req.app.models("priorityRooms").findOne({vacuumId})
+    const findPriorityRooms = await req.app.models("priorityRooms").findOne({vacuumId})
 
-    return helper.sendResponse(res, messages.SUCCESS, findPriorityRoomsById, configs.serviceName);
+    return helper.sendResponse(res, messages.SUCCESS, findPriorityRooms, configs.serviceName);
   } catch (err) {
     return helper.sendResponse(res, messages.INTERNAL_SERVER_ERROR, null, configs.serviceName);
   }
@@ -75,27 +75,42 @@ const createJob = async (req, res) => {
     if(foundVacuum?._id) {
       // Vacuum found
       let obj = { vacuumId, instructions, status: constants.jobStatus.TO_DO }
+      
+      // Save the job to DB
       const newJob = new req.app.models("jobs")(obj);
       await newJob.save();
 
+      // Get the earliest job available
       const findJobs = await req.app.models("jobs").find({vacuumId, status: constants.jobStatus.TO_DO }).sort({ createdAt: 1 })
 
       // If vacuum isn't currently busy, and we have at least one job
       if(foundVacuum?.status === constants.vacuumStatus.IDLE && findJobs && findJobs.length > 0) {
 
+        // Check if we have priority rooms
         const foundPriorityRooms = await req.app.models("priorityRooms").findOne({vacuumId});
 
+        // Create data obj for calculation
         let outgoingData =  {
           instructions: findJobs[0]?.instructions,
           currentRoom: foundVacuum?.currentRoom, 
         }
 
+        // Add priority rooms if they were found
         if(foundPriorityRooms && foundPriorityRooms.priorityRooms) outgoingData["priorityRooms"] = foundPriorityRooms.priorityRooms;
 
+        // Calculate via calculation service
         const calculateRoute = helper.parseHTTPResponse(await axios.post('http://localhost:6000/calculate/', outgoingData));
+        
+        // Return to sender
         return helper.sendResponse(res, messages.SUCCESS, calculateRoute, configs.serviceName);
+
+        /**
+         * - From here, client (vacuum) would recieve the rooms to clean, set it's status to 'BUSY', set the job status to "IN_PROGRESS", and beging cleaning.
+         * - Once it completed it's job, it would update the job document from "IN_PROGRESS" to "DONE", and check for any additional jobs, before going back to "IDLE".
+         */
       }
 
+      // Vacuum is busy, do nothing
       return helper.sendResponse(res, messages.SUCCESS, null, configs.serviceName);
     } else {
       // No vacuum found
@@ -108,8 +123,8 @@ const createJob = async (req, res) => {
 
 module.exports = {
   helloWorld,
-  getJobsById,
+  getJobs,
   createJob,
-  getPriorityRoomsById,
+  getPriorityRooms,
   setPriorityRooms
 };
