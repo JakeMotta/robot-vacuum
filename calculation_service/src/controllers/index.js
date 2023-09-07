@@ -14,7 +14,7 @@ const helloWorld = async (req, res) => {
 // Calculates room order
 const calculateRoomOrder = async (req, res) => {
   try {
-    const { instructions, currentRoom, priorityRooms } = req.body;
+    const { instructions = [], currentRoom = 1, priorityRooms = [] } = req.body;
 
     let newInstructions = [];
 
