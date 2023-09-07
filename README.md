@@ -1,7 +1,11 @@
 # robot-vacuum
 
+# Links
+
+* [Postman collection](https://drive.google.com/file/d/1Vno6203yvc_QdiZP_cqfOBqtZG3J9YAV/view?usp=sharing)
+* [Github](https://github.com/JakeMotta/robot-vacuum)
+
 # How To Run
----
 * **Note:** Do for each microservice (3 in total)
 1. Open a terminal to the microservice (ex: `/robot-vacuum/event_service`)
 2. Run `npm install` to install node modules
@@ -41,9 +45,9 @@ To ignore the complexities of my program, I've created a route to simply calcula
 - My algorithm for the vacuum is very basic. Check if we have priority rooms in our batch, and if so, make sure they are first. Then, sort the 'low priority' rooms from low to high. There is much room for improvement here, however this at least keeps us going in as much as a straight line as we can, minimizing back-and-forth motions.
 
 # Assumptions
-- Since we want to optimize room travel, I am allowed to rearrange numbers within the cleaning batch sub-arrays. ex: [[1,2,3],[4,5,6]] -> [[2,1,3],[6,5,4]]
+- Since we want to optimize room travel, I am allowed to rearrange numbers within the cleaning batch sub-arrays. ex: `[[1,2,3],[4,5,6]]` -> `[[2,1,3],[6,5,4]]`
 
-- Duplicate rooms in a single batch can be merged if they are next to each other, so you're not cleaning the same room twice in a row. ex: [1,2,2,3] -> [1,2,3]. This does not extend between batches though, so in [[1,2],[2,3]], room 2 would get cleaned twice since it's in a different batch.
+- Duplicate rooms in a single batch can be merged if they are next to each other, so you're not cleaning the same room twice in a row. ex: `[1,2,2,3]` -> `[1,2,3]`. This does not extend between batches though, so in `[[1,2],[2,3]]`, room 2 would get cleaned twice since it's in a different batch.
 
 - Priority rooms are a set 'lookup' list, rather than a real-time re-calculation.
 
@@ -120,7 +124,5 @@ To ignore the complexities of my program, I've created a route to simply calcula
 - If I had more time, I'd have implemented a front-end to connect to these services, which would have made for better continuity on vacuum creation, status, and job queue. 
 
 # Rough Work
-
-Postman collection [Download Link](https://drive.google.com/file/d/1Vno6203yvc_QdiZP_cqfOBqtZG3J9YAV/view?usp=sharing)
 
 ![Backend Architecture Diagram](https://i.gyazo.com/74f91f6c8a6aeaf167e72adc10183eb4.png)
