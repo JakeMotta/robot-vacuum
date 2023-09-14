@@ -1,6 +1,6 @@
 const configs = require('../configs');
-const helper = require("../../../shared/utils")(configs);
-const messages = require("../../../shared/messages");
+const helper = require("../shared/utils")(configs);
+const messages = require("../shared/messages");
 
 // Creates a new vacuum
 const getVacuum = async (req, res) => {

@@ -5,8 +5,8 @@ const bodyParser = require("body-parser");
 const helmet = require("helmet");
 const configs = require('./configs');
 const mongoose = require("mongoose");
-const messages = require("../../shared/messages");
-const helper = require("../../shared/utils")(configs);
+const messages = require("./shared/messages");
+const helper = require("./shared/utils")(configs);
 
 app.get('/', (req, res) => {
     res.send(`Hello from ${configs.serviceName} - ${configs.PORT}`);

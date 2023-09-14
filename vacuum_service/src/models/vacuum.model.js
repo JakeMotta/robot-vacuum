@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const constants = require('../../../shared/constants');
+const constants = require('../shared/constants');
 
 const VacuumSchema = new mongoose.Schema(
     {

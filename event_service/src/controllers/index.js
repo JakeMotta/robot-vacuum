@@ -1,7 +1,7 @@
 const configs = require('../configs');
-const constants = require('../../../shared/constants');
-const helper = require("../../../shared/utils")(configs);
-const messages = require("../../../shared/messages");
+const constants = require('../shared/constants');
+const helper = require("../shared/utils")(configs);
+const messages = require("../shared/messages");
 const axios = require('axios');
 
 // Finds jobs based on a vacuum's id
