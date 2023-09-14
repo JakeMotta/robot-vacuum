@@ -5,7 +5,10 @@
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon src/index.js localhost 3000"
+    "start": "nodemon src/index.js",
+    "docker:build": "docker build -t jakemotta/robotvacuum_event_service:1.0 .",
+    "docker:run": "docker run -p 3003:3003 docker.io/jakemotta/robotvacuum_event_service:1.0",
+    "docker": "npm run docker:build && npm run docker:run"
   },
   "keywords": [],
   "author": "",
