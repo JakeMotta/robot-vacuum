@@ -8,6 +8,14 @@
 
 # How To Run
 
+## Via Docker
+
+1. Make sure you have `docker` installed
+2. Run `docker-compose up`
+3. Access the microservices via the specified ports in `docker-compose.yml` file
+
+## Via Manual
+
 - **Note:** Do for each microservice (3 in total)
 
 1. Open a terminal to the microservice (ex: `/robot-vacuum/event_service`)

@@ -5,16 +5,16 @@ services:
     environment:
       - PORT=3000
     ports:
-      - "3000"
+      - "3000:3000"
   vacuum_service:
     build: ./vacuum_service
     environment:
       - PORT=4000
     ports:
-      - "4000"
+      - "4000:4000"
   calculation_service:
     build: ./calculation_service
     environment:
       - PORT=6000
     ports:
-      - "6000"
+      - "6000:6000"
